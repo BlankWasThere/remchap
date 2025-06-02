@@ -11,7 +11,7 @@ class Listener:
         self._port = None
         self._running = False
         self._ip = ip_address(ip)
-        self._server: asyncio.Server = None
+        self._server: asyncio.Server | None = None
         self._connection_queue: asyncio.Queue[Client] = asyncio.Queue()
 
     async def start_server(self, port: int) -> None:

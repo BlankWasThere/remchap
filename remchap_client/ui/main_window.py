@@ -17,7 +17,7 @@ class MainWindow(customtkinter.CTk):
         super().__init__(fg_color, **kwargs)
 
         self._dispatcher = AsyncDispatcher()
-        self._client: Client = None
+        self._client: Client | None = None
 
         self.title("Remchap")
         self.geometry("1024x612")
@@ -81,7 +81,7 @@ class MainWindow(customtkinter.CTk):
 
                 try:
                     content = buffer.decode()
-                    parsed: dict[str] = json.loads(content)
+                    parsed: dict[str, str] = json.loads(content)
 
                     assert parsed.get("message")
                 except (UnicodeDecodeError, AssertionError, json.JSONDecodeError):
@@ -100,7 +100,7 @@ class ChatFrame(customtkinter.CTkFrame):
     def __init__(self, master: customtkinter.CTk, dispatcher: AsyncDispatcher, **kwargs) -> None:
         super().__init__(master, fg_color="transparent", **kwargs)
 
-        self._client: Client = None
+        self._client: Client | None = None
         self._dispatcher = dispatcher
 
         self.rowconfigure(0, weight=1)
